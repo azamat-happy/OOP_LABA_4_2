@@ -14,13 +14,16 @@ namespace OOP_LABA
 {
     public partial class Form1 : Form
     {
+        SaverLoader SaverLoader;
         Model calculate;
+        
         public Form1()
         {
             calculate = new Model();
             trackBar1.Maximum = 100;
             trackBar2.Maximum = 100;
             trackBar3.Maximum = 100;
+            SaverLoader = new SaverLoader();
             calculate.calculated += UpdateLabels;
 
 
@@ -86,5 +89,21 @@ namespace OOP_LABA
             numericUpDown3.Value = calculate.C;
             trackBar3.Value = calculate.C;
         }
+        private void Numbers_Load(object sender, EventArgs e)
+        {
+            int[] numbers = new int[3];
+            SaverLoader.Load(out numbers[0], out numbers[1], out numbers[2]);
+
+            calculate.C = numbers[2];
+            calculate.B = numbers[1];
+            calculate.A = numbers[0];
+        }
+
+        private void Numbers_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaverLoader.Save(calculate.A, calculate.B, calculate.C);
+            Application.Exit();
+        }
+
     }
 }
