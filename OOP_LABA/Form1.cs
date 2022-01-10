@@ -17,7 +17,9 @@ namespace OOP_LABA
        
         public Form1()
         {
-          
+
+            Calc calculate = new Calc();
+
         }
     }
 }
